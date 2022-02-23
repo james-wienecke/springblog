@@ -6,6 +6,10 @@
 
 <section class="container">
   <h1>Specific Post</h1>
+  <div>
+    <h2 th:text="${post.getTitle()}">post title</h2>
+    <p th:text="${post.getBody()}"></pth:>
+  </div>
 </section>
 
 <th:block th:replace="partials/elements :: footer"></th:block>

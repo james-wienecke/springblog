@@ -6,6 +6,11 @@
 
 <section class="container">
     <h1>All Posts</h1>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="post : ${posts}">
+            <span th:text="${post.getTitle()}"></span>
+        </li>
+    </ul>
 </section>
 
 <th:block th:replace="partials/elements :: footer"></th:block>

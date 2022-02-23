@@ -23,7 +23,7 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String postsIndividualPage(@PathVariable long id, Model model) {
-        Post post = new Post("Individual Post", "Test post for individual post view.");
+        Post post = new Post("This Post", "Test post for individual post view.");
         model.addAttribute("post", post);
         return "posts/show";
     }
