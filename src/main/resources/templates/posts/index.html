@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/elements :: head(title='Posts Index')"></head>
+<body>
+<nav th:replace="partials/elements :: navbar"></nav>
+
+<section class="container">
+    <h1>All Posts</h1>
+    <ul class="list-group">
+        <li class="list-group-item" th:each="post : ${posts}">
+            <span th:text="${post.getTitle()}"></span>
+        </li>
+    </ul>
+</section>
+
+<th:block th:replace="partials/elements :: footer"></th:block>
+</body>
+</html>

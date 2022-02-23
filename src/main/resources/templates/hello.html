@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/elements :: head(title='Hello')"></head>
+<body>
+<nav th:replace="partials/elements :: navbar"></nav>
+
+<h1>Hello, <span th:text="${name}">World</span>!</h1>
+
+<th:block th:replace="partials/elements :: footer"></th:block>
+</body>
+</html>

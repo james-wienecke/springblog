@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="partials/elements :: head(title='Roll Them Dice!')"></head>
+<body>
+<nav th:replace="partials/elements :: navbar"></nav>
+<section class="container">
+    <h1>Die Guessing Game!</h1>
+    <small>Can you beat my high score? (2 correct!!!)</small>
+    <hr>
+    <section th:if="${result != null}" class="container">
+        <h3>Roll results:</h3>
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" th:each="die : ${result}">
+                <span th:text="${die}"></span>
+            </li>
+        </ul>
+        <h3>You guessed: <span th:text="${guess}"></span></h3>
+        <h3>You got <span th:text="${correct}"></span> correct!</h3>
+        <h3 th:if="${correct > 2}">You beat my high score! <em>WOW</em></h3>
+    </section>
+    <hr th:if="${result != null}">
+    <div class="container">
+        <a href="/roll-dice/1" class="btn btn-outline-primary" role="button">Guess 1</a>
+        <a href="/roll-dice/2" class="btn btn-outline-primary" role="button">Guess 2</a>
+        <a href="/roll-dice/3" class="btn btn-outline-primary" role="button">Guess 3</a>
+        <a href="/roll-dice/4" class="btn btn-outline-primary" role="button">Guess 4</a>
+        <a href="/roll-dice/5" class="btn btn-outline-primary" role="button">Guess 5</a>
+        <a href="/roll-dice/6" class="btn btn-outline-primary" role="button">Guess 6</a>
+    </div>
+</section>
+<th:block th:replace="partials/elements :: footer"></th:block>
+</body>
+</html>
