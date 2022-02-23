@@ -1,11 +1,8 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>Guess a Number! Roll the Dice!</title>
-    <th:block th:include="partials/bootstrap :: styles"></th:block>
-</head>
+<head th:replace="partials/elems/head :: head"></head>
 <body>
+<nav th:replace="partials/elems/navbar :: navbar"></nav>
 <section class="container">
     <h1>Die Guessing Game!</h1>
     <small>Can you beat my high score? (2 correct!!!)</small>
@@ -31,6 +28,6 @@
         <a href="/roll-dice/6" class="btn btn-outline-primary" role="button">Guess 6</a>
     </div>
 </section>
-<th:block th:include="partials/bootstrap :: scripts"></th:block>
+<th:block th:replace="partials/elems/footer :: footer"></th:block>
 </body>
 </html>
