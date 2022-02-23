@@ -9,7 +9,6 @@ import java.util.Random;
 
 @Controller
 public class RollDiceController {
-    private int result;
     private static final Random random = new Random();
 
     @GetMapping("/roll-dice")
@@ -20,7 +19,10 @@ public class RollDiceController {
     @GetMapping("/roll-dice/{num}")
     public String rollDiceGuess(@PathVariable int num, Model model) {
         model.addAttribute("guess", num);
-        result = random.nextInt(5) + 1;
+        int[] result = new int[5];
+        for (int i = 0; i < result.length; i++) {
+            result[i] = random.nextInt(5) + 1;
+        }
         model.addAttribute("result", result);
         return "roll-dice";
     }

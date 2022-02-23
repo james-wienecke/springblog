@@ -7,10 +7,13 @@
 <body>
 
 <div th:if="${result != null}">
-    <h3>Roll result: <span th:text="${result}"></span></h3>
+    <h3>Roll results:</h3>
+    <div th:each="die : ${result}">
+        <p th:text="${die}"></p>
+    </div>
     <h3>You guessed: <span th:text="${guess}"></span></h3>
-    <h3 th:if="${result == guess}">You were right! Goncrats!</h3>
-    <h3 th:if="${result != guess}">You were wrong! Too bad!</h3>
+    <h3 th:if="${result[0] == guess}">You were right! Goncrats!</h3>
+    <h3 th:if="${result[0] != guess}">You were wrong! Too bad!</h3>
 
 </div>
 
