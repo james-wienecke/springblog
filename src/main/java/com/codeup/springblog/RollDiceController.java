@@ -19,11 +19,14 @@ public class RollDiceController {
     @GetMapping("/roll-dice/{num}")
     public String rollDiceGuess(@PathVariable int num, Model model) {
         model.addAttribute("guess", num);
+        int correct = 0;
         int[] result = new int[5];
         for (int i = 0; i < result.length; i++) {
             result[i] = random.nextInt(5) + 1;
+            if (result[i] == num) correct++;
         }
         model.addAttribute("result", result);
+        model.addAttribute("correct", correct);
         return "roll-dice";
     }
 }

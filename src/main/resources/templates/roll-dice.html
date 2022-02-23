@@ -5,16 +5,17 @@
     <title>Guess a Number! Roll the Dice!</title>
 </head>
 <body>
-
+<h1>Die Guessing Game!</h1>
+<small>Can you beat my high score? (2 correct!!!)</small>
+<hr>
 <div th:if="${result != null}">
     <h3>Roll results:</h3>
     <div th:each="die : ${result}">
         <p th:text="${die}"></p>
     </div>
     <h3>You guessed: <span th:text="${guess}"></span></h3>
-    <h3 th:if="${result[0] == guess}">You were right! Goncrats!</h3>
-    <h3 th:if="${result[0] != guess}">You were wrong! Too bad!</h3>
-
+    <h3>You got <span th:text="${correct}"></span> correct!</h3>
+    <h3 th:if="${correct > 2}">You beat my high score! <em>WOW</em></h3>
 </div>
 
 <a href="/roll-dice/1">Guess 1</a>
