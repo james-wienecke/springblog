@@ -3,29 +3,34 @@
 <head>
     <meta charset="UTF-8" />
     <title>Guess a Number! Roll the Dice!</title>
+    <th:block th:include="partials/styles :: styles"></th:block>
 </head>
 <body>
-<h1>Die Guessing Game!</h1>
-<small>Can you beat my high score? (2 correct!!!)</small>
-<hr>
-<div th:if="${result != null}">
-    <h3>Roll results:</h3>
-    <div th:each="die : ${result}">
-        <p th:text="${die}"></p>
+<section class="container">
+    <h1>Die Guessing Game!</h1>
+    <small>Can you beat my high score? (2 correct!!!)</small>
+    <hr>
+    <section th:if="${result != null}" class="container">
+        <h3>Roll results:</h3>
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item" th:each="die : ${result}">
+                <span th:text="${die}"></span>
+            </li>
+        </ul>
+        <h3>You guessed: <span th:text="${guess}"></span></h3>
+        <h3>You got <span th:text="${correct}"></span> correct!</h3>
+        <h3 th:if="${correct > 2}">You beat my high score! <em>WOW</em></h3>
+    </section>
+    <hr th:if="${result != null}">
+    <div class="container">
+        <a href="/roll-dice/1" class="btn btn-outline-primary" role="button">Guess 1</a>
+        <a href="/roll-dice/2" class="btn btn-outline-primary" role="button">Guess 2</a>
+        <a href="/roll-dice/3" class="btn btn-outline-primary" role="button">Guess 3</a>
+        <a href="/roll-dice/4" class="btn btn-outline-primary" role="button">Guess 4</a>
+        <a href="/roll-dice/5" class="btn btn-outline-primary" role="button">Guess 5</a>
+        <a href="/roll-dice/6" class="btn btn-outline-primary" role="button">Guess 6</a>
     </div>
-    <h3>You guessed: <span th:text="${guess}"></span></h3>
-    <h3>You got <span th:text="${correct}"></span> correct!</h3>
-    <h3 th:if="${correct > 2}">You beat my high score! <em>WOW</em></h3>
-</div>
-
-<a href="/roll-dice/1">Guess 1</a>
-<a href="/roll-dice/2">Guess 2</a>
-<a href="/roll-dice/3">Guess 3</a>
-<a href="/roll-dice/4">Guess 4</a>
-<a href="/roll-dice/5">Guess 5</a>
-<a href="/roll-dice/6">Guess 6</a>
-
-
-
+</section>
+<th:block th:include="partials/scripts :: scripts"></th:block>
 </body>
 </html>
