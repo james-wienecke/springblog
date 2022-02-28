@@ -8,6 +8,7 @@
   <h1>Specific Post</h1>
   <div>
     <h2 th:text="${post.getTitle()}">post title</h2>
+    <p th:text="${post.getPoster().getEmail()}"></p>
     <p th:text="${post.getBody()}"></p>
   </div>
 </section>

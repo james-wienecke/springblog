@@ -15,17 +15,23 @@ public class Post {
     @Column(nullable = false)
     private String body;
 
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private User poster;
+
     public Post() {}
 
-    public Post(String title, String body) {
+    public Post(String title, String body, User poster) {
         this.title = title;
         this.body = body;
+        this.poster = poster;
     }
 
-    public Post(long id, String title, String body) {
+    public Post(long id, String title, String body, User poster) {
         this.id = id;
         this.title = title;
         this.body = body;
+        this.poster = poster;
     }
 
     public long getId() {
@@ -50,5 +56,13 @@ public class Post {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public User getPoster() {
+        return poster;
+    }
+
+    public void setPoster(User poster) {
+        this.poster = poster;
     }
 }
