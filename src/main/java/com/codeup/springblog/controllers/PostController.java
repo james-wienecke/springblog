@@ -24,7 +24,8 @@ public class PostController {
 
     @GetMapping("/posts/{id}")
     public String postsIndividualPage(@PathVariable long id, Model model) {
-        model.addAttribute("post", postRepo.findById(id));
+        Post post = postRepo.getById(id);
+        model.addAttribute("post", post);
         return "posts/show";
     }
 
@@ -34,13 +35,39 @@ public class PostController {
     }
 
     @PostMapping("/posts/create")
-    @ResponseBody
     public String postsCreateSubmit(
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body
     ) {
         Post post = new Post(title, body);
         postRepo.save(post);
-        return "Post created";
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/posts/{id}/edit")
+    public String postsEditForm(@PathVariable long id, Model model) {
+        Post post = postRepo.getById(id);
+        model.addAttribute("post", post);
+        return "posts/edit";
+    }
+
+    @PostMapping("/posts/{id}/edit")
+    public String postsEditSubmit(@PathVariable long id,
+                                  @RequestParam(name = "title") String title,
+                                  @RequestParam(name = "body") String body) {
+        Post post = postRepo.getById(id);
+
+        post.setTitle(title);
+        post.setBody(body);
+
+        postRepo.save(post);
+        return "redirect:/posts";
+    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String delete(@PathVariable long id) {
+        Post post = postRepo.getById(id);
+        postRepo.delete(post);
+        return "redirect:/posts";
     }
 }
