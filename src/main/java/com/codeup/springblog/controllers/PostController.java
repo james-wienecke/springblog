@@ -1,7 +1,9 @@
 package com.codeup.springblog.controllers;
 
 import com.codeup.springblog.models.Post;
+import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
+import com.codeup.springblog.repositories.UserRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -11,9 +13,15 @@ import java.util.ArrayList;
 @Controller
 public class PostController {
     private PostRepository postRepo;
+    private UserRepository userRepo;
 
-    public PostController(PostRepository postRepo) {
+    private User testUser;
+
+    public PostController(PostRepository postRepo, UserRepository userRepo) {
         this.postRepo = postRepo;
+        this.userRepo = userRepo;
+        testUser = userRepo.getById(1L);
+
     }
 
     @GetMapping("/posts")
@@ -39,7 +47,7 @@ public class PostController {
             @RequestParam(name = "title") String title,
             @RequestParam(name = "body") String body
     ) {
-        Post post = new Post(title, body);
+        Post post = new Post(title, body, testUser);
         postRepo.save(post);
         return "redirect:/posts";
     }
