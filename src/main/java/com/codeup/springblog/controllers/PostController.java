@@ -45,7 +45,7 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String postsCreateSubmit(@ModelAttribute Post post) {
-        //Post post = new Post(title, body, testUser);
+        post.setPoster(userRepo.getById(1L));
         postRepo.save(post);
         return "redirect:/posts";
     }
@@ -58,14 +58,7 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String postsEditSubmit(@PathVariable long id,
-                                  @RequestParam(name = "title") String title,
-                                  @RequestParam(name = "body") String body) {
-        Post post = postRepo.getById(id);
-
-        post.setTitle(title);
-        post.setBody(body);
-
+    public String postsEditSubmit(@PathVariable long id, @ModelAttribute Post post) {
         postRepo.save(post);
         return "redirect:/posts";
     }
