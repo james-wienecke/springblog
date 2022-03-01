@@ -4,15 +4,8 @@
 <body>
 <nav th:replace="partials/elements :: navbar"></nav>
 
-<section class="container">
-    <h1>Write a New Post</h1>
-    <form name="new-post" th:method="post" th:action="@{/posts/create}" th:object="${post}">
-        <label for="title">Title</label>
-        <input type="text" name="title" id="title">
-        <label for="body">Body</label>
-        <input type="text" name="body" id="body">
-        <button type="submit">Submit</button>
-    </form>
+<section th:replace="partials/post-form :: postform(title='Create post', action='/posts/create')">
+    Post form
 </section>
 
 <th:block th:replace="partials/elements :: footer"></th:block>
