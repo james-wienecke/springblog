@@ -8,7 +8,9 @@
     <h1>All Posts</h1>
     <ul class="list-group">
         <li class="list-group-item" th:each="post : ${posts}">
-            <span th:text="${post.getTitle()}"></span>
+            <a th:href="@{'/posts/' + ${post.getId()}}">
+                <span th:text="${post.getTitle()}">Post Title</span>
+            </a>
         </li>
     </ul>
 </section>
