@@ -38,16 +38,14 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String postsCreateForm() {
+    public String postsCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String postsCreateSubmit(
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body
-    ) {
-        Post post = new Post(title, body, testUser);
+    public String postsCreateSubmit(@ModelAttribute Post post) {
+        //Post post = new Post(title, body, testUser);
         postRepo.save(post);
         return "redirect:/posts";
     }
