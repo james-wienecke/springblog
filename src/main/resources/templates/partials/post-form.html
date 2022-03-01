@@ -1,0 +1,11 @@
+<section class="container" th:fragment="postform(title, action)">
+    <h1 th:text="${title}">Post form</h1>
+    <form name="post" th:method="POST" th:action="@{${action}}" th:object="${post}">
+        <label for="title">Title</label>
+        <input type="text" name="title" id="title" th:field="*{title}"/>
+        <label for="body">Body</label>
+        <textarea name="body" id="body" th:field="*{body}"></textarea>
+        <input type="hidden" th:field="*{poster}" id="poster">
+        <button type="submit">Submit</button>
+    </form>
+</section>

@@ -38,18 +38,15 @@ public class PostController {
     }
 
     @GetMapping("/posts/create")
-    public String postsCreateForm() {
+    public String postsCreateForm(Model model) {
+        model.addAttribute("post", new Post());
         return "posts/create";
     }
 
     @PostMapping("/posts/create")
-    public String postsCreateSubmit(
-            @RequestParam(name = "title") String title,
-            @RequestParam(name = "body") String body
-    ) {
-        Post post = new Post(title, body, testUser);
-        postRepo.save(post);
-        return "redirect:/posts";
+    public String postsCreateSubmit(@ModelAttribute Post post) {
+        post.setPoster(userRepo.getById(1L));
+        return savePost(post);
     }
 
     @GetMapping("/posts/{id}/edit")
@@ -60,22 +57,19 @@ public class PostController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String postsEditSubmit(@PathVariable long id,
-                                  @RequestParam(name = "title") String title,
-                                  @RequestParam(name = "body") String body) {
-        Post post = postRepo.getById(id);
-
-        post.setTitle(title);
-        post.setBody(body);
-
-        postRepo.save(post);
-        return "redirect:/posts";
+    public String postsEditSubmit(@PathVariable long id, @ModelAttribute Post post) {
+        return savePost(post);
     }
 
     @PostMapping("/posts/{id}/delete")
     public String delete(@PathVariable long id) {
         Post post = postRepo.getById(id);
         postRepo.delete(post);
+        return "redirect:/posts";
+    }
+
+    private String savePost(Post post) {
+        postRepo.save(post);
         return "redirect:/posts";
     }
 }
