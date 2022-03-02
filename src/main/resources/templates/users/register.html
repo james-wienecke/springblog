@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="partials/elements :: head(title='Register')"></head>
+<body>
+<nav th:replace="partials/elements :: navbar"></nav>
+
+<section class="container">
+    <h1>Registration form</h1>
+    <form name="post" th:method="POST" th:action="@{/sign-up}" th:object="${user}">
+        <label for="email">Email</label>
+        <input type="text" name="email" id="email" th:field="*{email}"/>
+        <label for="username">Username</label>
+        <input type="text" name="username" id="username" th:field="*{username}"/>
+        <label for="password">Password</label>
+        <input type="password" name="password" id="password" th:field="*{password}"/>
+        <label for="password-confirm">Confirm Password</label>
+        <input type="password" name="password-confirm" id="password-confirm"/>
+
+        <button type="submit">Submit</button>
+    </form>
+</section>
+
+<th:block th:replace="partials/elements :: footer"></th:block>
+</body>
+</html>
