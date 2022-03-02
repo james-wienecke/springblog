@@ -4,6 +4,7 @@ import com.codeup.springblog.models.Post;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import com.codeup.springblog.services.EmailService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -15,13 +16,15 @@ public class PostController {
     private PostRepository postRepo;
     private UserRepository userRepo;
 
+    private final EmailService emailService;
+
     private User testUser;
 
-    public PostController(PostRepository postRepo, UserRepository userRepo) {
+    public PostController(PostRepository postRepo, UserRepository userRepo, EmailService emailService) {
         this.postRepo = postRepo;
         this.userRepo = userRepo;
-        testUser = userRepo.getById(1L);
-
+        this.testUser = userRepo.getById(3L);
+        this.emailService = emailService;
     }
 
     @GetMapping("/posts")
@@ -45,7 +48,8 @@ public class PostController {
 
     @PostMapping("/posts/create")
     public String postsCreateSubmit(@ModelAttribute Post post) {
-        post.setPoster(userRepo.getById(1L));
+        post.setPoster(userRepo.getById(3L));
+        emailService.prepareAndSend(post, post.getTitle(), post.getBody());
         return savePost(post);
     }
 
