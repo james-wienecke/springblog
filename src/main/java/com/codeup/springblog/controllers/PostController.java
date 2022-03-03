@@ -54,18 +54,31 @@ public class PostController {
 
     @GetMapping("/posts/{id}/edit")
     public String postsEditForm(@PathVariable long id, Model model) {
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Post post = postRepo.getById(id);
-        model.addAttribute("post", post);
-        return "posts/edit";
+        if (user.getId() == post.getPoster().getId()) {
+            model.addAttribute("post", post);
+            return "posts/edit";
+        } else {
+            return "posts/";
+        }
     }
 
     @PostMapping("/posts/{id}/edit")
     public String postsEditSubmit(@PathVariable long id, @ModelAttribute Post post) {
+        post.setPoster((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return savePost(post);
     }
 
+    @GetMapping("/posts/{id}/delete")
+    public String deleteGet(@PathVariable long id) {
+        Post post = postRepo.getById(id);
+        postRepo.delete(post);
+        return "redirect:/posts";
+    }
+
     @PostMapping("/posts/{id}/delete")
-    public String delete(@PathVariable long id) {
+    public String deletePost(@PathVariable long id) {
         Post post = postRepo.getById(id);
         postRepo.delete(post);
         return "redirect:/posts";
