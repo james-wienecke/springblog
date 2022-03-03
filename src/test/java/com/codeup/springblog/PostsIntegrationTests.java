@@ -3,6 +3,7 @@ package com.codeup.springblog;
 import com.codeup.springblog.models.User;
 import com.codeup.springblog.repositories.PostRepository;
 import com.codeup.springblog.repositories.UserRepository;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,8 +38,10 @@ public class PostsIntegrationTests {
     @Autowired
     PostRepository postRepo;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Before
     public void setup() throws Exception {
         testUser = userRepo.findByUsername("testUser");
 
@@ -55,7 +58,7 @@ public class PostsIntegrationTests {
                         .param("username", "testUser")
                         .param("password", "pass"))
                 .andExpect(status().is(HttpStatus.FOUND.value()))
-                .andExpect(redirectedUrl("/ads"))
+                .andExpect(redirectedUrl("/posts"))
                 .andReturn()
                 .getRequest()
                 .getSession();
